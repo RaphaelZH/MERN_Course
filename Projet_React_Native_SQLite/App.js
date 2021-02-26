@@ -182,74 +182,88 @@ export default class App extends React.Component {
           />
         </View>
 
-        <ScrollView style={styles.listArea}>
-          <Items
-            todo={true}
-            ref={(todo) => (this.todo = todo)}
-            onPressItem={(id) =>
-              db.transaction(
-                (tx) => {
-                  tx.executeSql(
-                    "UPDATE status SET todo = 0, doing = 1, review = 0, done = 0 WHERE id = ?;",
-                    [id]
-                  );
-                },
-                null,
-                this.doing_update
-              )
-            }
-          />
-          <Items
-            doing={true}
-            ref={(doing) => (this.doing = doing)}
-            onPressItem={(id) =>
-              db.transaction(
-                (tx) => {
-                  tx.executeSql(
-                    "UPDATE status SET todo = 0, doing = 0, review = 1, done = 0 WHERE id = ?;",
-                    [id]
-                  );
-                },
-                null,
-                this.review_update
-              )
-            }
-          />
-          <Items
-            todo={false}
-            doing={false} ////
-            review={true}
-            done={false}
-            ref={(review) => (this.review = review)}
-            onPressItem={(id) =>
-              db.transaction(
-                (tx) => {
-                  tx.executeSql(
-                    "UPDATE status SET todo = 0, doing = 0, review = 0, done = 1 WHERE id = ?;",
-                    [id]
-                  );
-                },
-                null,
-                this.done_update
-              )
-            }
-          />
-          <Items
-            todo={false}
-            doing={false}
-            review={false}
-            done={true}
-            ref={(done) => (this.done = done)}
-            onPressItem={(id) =>
-              db.transaction(
-                (tx) => {
-                  tx.executeSql("DELETE FROM status WHERE id = ?;", [id]);
-                },
-                null,
-                this.done_update
-              )
-            }
-          />
+        <ScrollView style={[styles.listArea, {flex: 1}]}>
+          <View style={{ flex: 1 }}>
+            <View style={{ flex: 1 }}>
+              <Text>AAAAA</Text>
+              <Items
+                todo={true}
+                ref={(todo) => (this.todo = todo)}
+                onPressItem={(id) =>
+                  db.transaction(
+                    (tx) => {
+                      tx.executeSql(
+                        "UPDATE status SET todo = 0, doing = 1, review = 0, done = 0 WHERE id = ?;",
+                        [id]
+                      );
+                    },
+                    null,
+                    this.doing_update
+                  )
+                }
+              />
+            </View>
+            <View style={{ flex: 1 }}>
+              <Text>BBBBB</Text>
+              <Items
+                doing={true}
+                ref={(doing) => (this.doing = doing)}
+                onPressItem={(id) =>
+                  db.transaction(
+                    (tx) => {
+                      tx.executeSql(
+                        "UPDATE status SET todo = 0, doing = 0, review = 1, done = 0 WHERE id = ?;",
+                        [id]
+                      );
+                    },
+                    null,
+                    this.review_update
+                  )
+                }
+              />
+            </View>
+            <View style={{ flex: 1 }}>
+              <Text>CCCC</Text>
+              <Items
+                todo={false}
+                doing={false} ////
+                review={true}
+                done={false}
+                ref={(review) => (this.review = review)}
+                onPressItem={(id) =>
+                  db.transaction(
+                    (tx) => {
+                      tx.executeSql(
+                        "UPDATE status SET todo = 0, doing = 0, review = 0, done = 1 WHERE id = ?;",
+                        [id]
+                      );
+                    },
+                    null,
+                    this.done_update
+                  )
+                }
+              />
+            </View>
+            <View style={{ flex: 1 }}>
+              <Text>DDDD</Text>
+              <Items
+                todo={false}
+                doing={false}
+                review={false}
+                done={true}
+                ref={(done) => (this.done = done)}
+                onPressItem={(id) =>
+                  db.transaction(
+                    (tx) => {
+                      tx.executeSql("DELETE FROM status WHERE id = ?;", [id]);
+                    },
+                    null,
+                    this.done_update
+                  )
+                }
+              />
+            </View>
+          </View>
         </ScrollView>
       </View>
     );
