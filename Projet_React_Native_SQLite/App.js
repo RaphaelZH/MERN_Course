@@ -11,7 +11,7 @@ import {
 
 import * as SQLite from "expo-sqlite";
 
-import TodoList from "./components/TodoList";
+//import TodoList from "./components/TodoList";
 
 // Open a database, creating it if it doesn't exist,
 // and return a Database object.
