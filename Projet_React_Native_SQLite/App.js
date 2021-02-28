@@ -14,6 +14,7 @@ import * as SQLite from "expo-sqlite";
 
 import Items from "./components/Items";
 
+
 // Open a database, creating it if it doesn't exist,
 // and return a Database object.
 const db = SQLite.openDatabase("KanbanBoard.db");
@@ -106,10 +107,7 @@ export default class App extends React.Component {
             <View style={{ flex: 1 }}>
               <Text>CCCC</Text>
               <Items
-                todo={false}
-                doing={false} ////
                 review={true}
-                done={false}
                 ref={(review) => (this.review = review)}
                 onPressItem={(id) =>
                   db.transaction(
@@ -128,9 +126,6 @@ export default class App extends React.Component {
             <View style={{ flex: 1 }}>
               <Text>DDDD</Text>
               <Items
-                todo={false}
-                doing={false}
-                review={false}
                 done={true}
                 ref={(done) => (this.done = done)}
                 onPressItem={(id) =>

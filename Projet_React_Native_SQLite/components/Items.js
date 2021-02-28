@@ -16,7 +16,7 @@ import * as SQLite from "expo-sqlite";
 // and return a Database object.
 const db = SQLite.openDatabase("KanbanBoard.db");
 
-class Items extends React.Component {
+export default class Items extends React.Component {
   state = {
     items: null,
   };
@@ -75,7 +75,7 @@ class Items extends React.Component {
         {items.map(({ id, todo, doing, review, done, task }) => (
           <TouchableOpacity
             key={id}
-            onPress={() => this.props.onPressItem && this.props.onPressItem(id)}
+            onPress={() => this.props.onPressItem(id)}
             style={{
               backgroundColor: background_color,
               borderColor: "#000",
@@ -135,8 +135,6 @@ class Items extends React.Component {
     });
   }
 }
-
-export default Items;
 
 const styles = StyleSheet.create({
   container: {
