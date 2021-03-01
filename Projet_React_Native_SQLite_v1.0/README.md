@@ -21,3 +21,7 @@ There are a total of 3 screens in this app.
 * Screen of profile
 
 ![Screen of profile](./ScreenImages/ProfileScreen.png)
+
+## Design inspiration
+
+This project's design inspiration comes from a [React Native Template](https://reactnativemarket.com) by using a high-quality, standard-compliant Material Design library, `React Native Paper`.
