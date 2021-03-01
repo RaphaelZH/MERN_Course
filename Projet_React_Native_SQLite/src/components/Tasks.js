@@ -1,13 +1,14 @@
 import { StatusBar } from "expo-status-bar";
 import React from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  ScrollView,
-  TextInput,
-  TouchableOpacity,
-} from "react-native";
+import { StyleSheet, View, TouchableOpacity } from "react-native";
+import { Text } from "react-native-paper";
+import Background from "../components/Background";
+import Logo from "../components/Logo";
+import Header from "../components/Header";
+import Button from "../components/Button";
+import TextInput from "../components/TextInput";
+import BackButton from "../components/BackButton";
+import { theme } from "../core/theme";
 
 // Import SQLite API.
 import * as SQLite from "expo-sqlite";
@@ -16,7 +17,7 @@ import * as SQLite from "expo-sqlite";
 // and return a Database object.
 const db = SQLite.openDatabase("KanbanBoard.db");
 
-export default class Items extends React.Component {
+export default class Tasks extends React.Component {
   state = {
     items: null,
   };
@@ -42,25 +43,21 @@ export default class Items extends React.Component {
       heading = "Todo";
       background_color = "red";
       font_color = "white";
-      msg = true;
       this.to_show = this.todoUpdate();
     } else if (doingBlock === true) {
       heading = "Doing";
       background_color = "blue";
       font_color = "snow";
-      msg = true; //
       this.to_show = this.doingUpdate();
     } else if (reviewBlock === true) {
       heading = "Review";
       background_color = "yellow";
       font_color = "red";
-      msg = true; //
       this.to_show = this.reviewUpdate();
     } else if (doneBlock === true) {
       heading = "Done";
       background_color = "orange";
       font_color = "whitesmoke";
-      msg = true; //
       this.to_show = this.doneUpdate();
     }
 
@@ -71,22 +68,25 @@ export default class Items extends React.Component {
     return (
       //style
       <View style={styles.sectionContainer}>
-        <Text style={styles.sectionHeading}>{heading}</Text>
+        <Header style={styles.header}>{heading}</Header>
         {items.map(({ id, todo, doing, review, done, task }) => (
-          <TouchableOpacity
+          <Button
             key={id}
             onPress={() => this.props.onPressItem(id)}
-            style={{
-              backgroundColor: background_color,
-              borderColor: "#000",
-              borderWidth: 1,
-              padding: 8,
-            }}
+            style={[
+              styles.button,
+              {
+                backgroundColor: background_color,
+                borderColor: "silver",
+                borderWidth: 1,
+                padding: 8,
+              },
+            ]}
           >
             <Text style={{ color: font_color }}>
               {[todo + " " + doing + " " + review + " " + done + " " + task]}
             </Text>
-          </TouchableOpacity>
+          </Button>
         ))}
       </View>
     );
@@ -137,6 +137,17 @@ export default class Items extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  header: {
+    fontSize: 16,
+    color: theme.colors.secondary,
+    fontWeight: "bold",
+    paddingVertical: 8,
+  },
+  button: {
+    width: "100%",
+    marginVertical: 2,
+    paddingVertical: 2,
+  },
   container: {
     backgroundColor: "#fff",
     flex: 1,

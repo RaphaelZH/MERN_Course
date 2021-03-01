@@ -1,25 +1,25 @@
 import { StatusBar } from "expo-status-bar";
 import React from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  ScrollView,
-  TextInput,
-  TouchableOpacity,
-} from "react-native";
+import { StyleSheet, View, ScrollView } from "react-native";
+import { Text } from "react-native-paper";
+import Background from "../components/Background";
+import Logo from "../components/Logo";
+import Header from "../components/Header";
+import Button from "../components/Button";
+import TextInput from "../components/TextInput";
+import BackButton from "../components/BackButton";
+import { theme } from "../core/theme";
 
 // Import SQLite API.
 import * as SQLite from "expo-sqlite";
 
-import Items from "./Items";
-
+import Tasks from "../components/Tasks";
 
 // Open a database, creating it if it doesn't exist,
 // and return a Database object.
 const db = SQLite.openDatabase("KanbanBoard.db");
 
-export default class Kanban extends React.Component {
+export default class KanbanBoardScreen extends React.Component {
   /*constructor(props) {
     super(props);
     this.state = {
@@ -47,100 +47,88 @@ export default class Kanban extends React.Component {
   }
 
   render() {
+    const { navigation } = this.props;
     return (
       <View style={styles.container}>
-        <Text style={styles.heading}>SQLite Example</Text>
-
-        <View style={styles.flexRow}>
+        <Background>
+          <BackButton goBack={navigation.goBack} />
+          <Header>Kanban Board App</Header>
           <TextInput
+            label="New Task"
             onChangeText={(text) => this.setState({ text })}
             onSubmitEditing={() => {
               this.add(this.state.text);
               this.setState({ text: null });
             }}
             placeholder="Do you want to add a new task?"
-            style={styles.input}
             value={this.state.text}
+            autoCapitalize="none"
           />
-        </View>
 
-        <ScrollView style={[styles.listArea, { flex: 1 }]}>
-          <View style={{ flex: 1 }}>
-            <View style={{ flex: 1 }}>
-              <Text>AAAAA</Text>
-              <Items
-                todo={true}
-                ref={(todo) => (this.todo = todo)}
-                onPressItem={(id) =>
-                  db.transaction(
-                    (tx) => {
-                      tx.executeSql(
-                        "UPDATE status SET todo = 0, doing = 1, review = 0, done = 0 WHERE id = ?;",
-                        [id]
-                      );
-                    },
-                    null,
-                    this.doing_update
-                  )
-                }
-              />
-            </View>
-            <View style={{ flex: 1 }}>
-              <Text>BBBBB</Text>
-              <Items
-                doing={true}
-                ref={(doing) => (this.doing = doing)}
-                onPressItem={(id) =>
-                  db.transaction(
-                    (tx) => {
-                      tx.executeSql(
-                        "UPDATE status SET todo = 0, doing = 0, review = 1, done = 0 WHERE id = ?;",
-                        [id]
-                      );
-                    },
-                    null,
-                    this.review_update
-                  )
-                }
-              />
-            </View>
-            <View style={{ flex: 1 }}>
-              <Text>CCCC</Text>
-              <Items
-                review={true}
-                ref={(review) => (this.review = review)}
-                onPressItem={(id) =>
-                  db.transaction(
-                    (tx) => {
-                      tx.executeSql(
-                        "UPDATE status SET todo = 0, doing = 0, review = 0, done = 1 WHERE id = ?;",
-                        [id]
-                      );
-                    },
-                    null,
-                    this.done_update
-                  )
-                }
-              />
-            </View>
-            <View style={{ flex: 1 }}>
-              <Text>DDDD</Text>
-              <Items
-                done={true}
-                ref={(done) => (this.done = done)}
-                onPressItem={(id) =>
-                  db.transaction(
-                    (tx) => {
-                      tx.executeSql("DELETE FROM status WHERE id = ?;", [id]);
-                    },
-                    null,
-                    this.done_update
-                  )
-                }
-              />
-            </View>
-          </View>
-        </ScrollView>
+          <ScrollView style={styles.tasksArea}>
+            <Tasks
+              todo={true}
+              ref={(todo) => (this.todo = todo)}
+              onPressItem={(id) =>
+                db.transaction(
+                  (tx) => {
+                    tx.executeSql(
+                      "UPDATE status SET todo = 0, doing = 1, review = 0, done = 0 WHERE id = ?;",
+                      [id]
+                    );
+                  },
+                  null,
+                  this.doing_update
+                )
+              }
+            />
+            <Tasks
+              doing={true}
+              ref={(doing) => (this.doing = doing)}
+              onPressItem={(id) =>
+                db.transaction(
+                  (tx) => {
+                    tx.executeSql(
+                      "UPDATE status SET todo = 0, doing = 0, review = 1, done = 0 WHERE id = ?;",
+                      [id]
+                    );
+                  },
+                  null,
+                  this.review_update
+                )
+              }
+            />
+            <Tasks
+              review={true}
+              ref={(review) => (this.review = review)}
+              onPressItem={(id) =>
+                db.transaction(
+                  (tx) => {
+                    tx.executeSql(
+                      "UPDATE status SET todo = 0, doing = 0, review = 0, done = 1 WHERE id = ?;",
+                      [id]
+                    );
+                  },
+                  null,
+                  this.done_update
+                )
+              }
+            />
+            <Tasks
+              done={true}
+              ref={(done) => (this.done = done)}
+              onPressItem={(id) =>
+                db.transaction(
+                  (tx) => {
+                    tx.executeSql("DELETE FROM status WHERE id = ?;", [id]);
+                  },
+                  null,
+                  this.done_update
+                )
+              }
+            />
+          </ScrollView>
+        </Background>
       </View>
     );
   }
@@ -199,6 +187,10 @@ export default class Kanban extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  tasksArea: {
+    flex: 1,
+    width: 330,
+  },
   container: {
     backgroundColor: "#fff",
     flex: 1,
@@ -220,11 +212,6 @@ const styles = StyleSheet.create({
     height: 48,
     margin: 16,
     padding: 8,
-  },
-  listArea: {
-    backgroundColor: "#f0f0f0",
-    flex: 1,
-    paddingTop: 16,
   },
   sectionContainer: {
     marginBottom: 16,
