@@ -38,26 +38,25 @@ export default class Tasks extends React.Component {
     let heading;
     let background_color;
     let font_color;
-    let msg; //
     if (todoBlock === true) {
       heading = "Todo";
-      background_color = "red";
-      font_color = "white";
+      background_color = theme.colors.YUHONG;
+      font_color = theme.colors.DANQINGZI;
       this.to_show = this.todoUpdate();
     } else if (doingBlock === true) {
       heading = "Doing";
-      background_color = "blue";
-      font_color = "snow";
+      background_color = theme.colors.MEIGUIHONG;
+      font_color = theme.colors.DANQINGZI;
       this.to_show = this.doingUpdate();
     } else if (reviewBlock === true) {
       heading = "Review";
-      background_color = "yellow";
-      font_color = "red";
+      background_color = theme.colors.QINGLIAN;
+      font_color = theme.colors.DANQINGZI;
       this.to_show = this.reviewUpdate();
     } else if (doneBlock === true) {
       heading = "Done";
-      background_color = "orange";
-      font_color = "whitesmoke";
+      background_color = theme.colors.TENGLUOZI;
+      font_color = theme.colors.DANQINGZI;
       this.to_show = this.doneUpdate();
     }
 
@@ -77,14 +76,18 @@ export default class Tasks extends React.Component {
               styles.button,
               {
                 backgroundColor: background_color,
-                borderColor: "silver",
-                borderWidth: 1,
-                padding: 8,
               },
             ]}
           >
-            <Text style={{ color: font_color }}>
-              {[todo + " " + doing + " " + review + " " + done + " " + task]}
+            <Text
+              style={[
+                styles.task,
+                {
+                  color: font_color,
+                },
+              ]}
+            >
+              {[task]}
             </Text>
           </Button>
         ))}
@@ -142,21 +145,29 @@ const styles = StyleSheet.create({
     color: theme.colors.secondary,
     fontWeight: "bold",
     paddingVertical: 8,
+    textAlign: "center",
   },
   button: {
     width: "100%",
     marginVertical: 2,
     paddingVertical: 2,
+    borderColor: "silver",
+    borderWidth: 1,
+    padding: 8,
+    alignContent: "flex-start",
+
+  },
+  task: {
+    fontWeight: "bold",
+    fontSize: 18,
+    lineHeight: 24,
+    textAlign: "left",
+    alignSelf: "flex-start",
   },
   container: {
     backgroundColor: "#fff",
     flex: 1,
     paddingTop: 8,
-  },
-  heading: {
-    fontSize: 20,
-    fontWeight: "bold",
-    textAlign: "center",
   },
   flexRow: {
     flexDirection: "row",
@@ -178,9 +189,5 @@ const styles = StyleSheet.create({
   sectionContainer: {
     marginBottom: 16,
     marginHorizontal: 16,
-  },
-  sectionHeading: {
-    fontSize: 18,
-    marginBottom: 8,
   },
 });

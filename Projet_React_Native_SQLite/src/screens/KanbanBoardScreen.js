@@ -20,19 +20,6 @@ import Tasks from "../components/Tasks";
 const db = SQLite.openDatabase("KanbanBoard.db");
 
 export default class KanbanBoardScreen extends React.Component {
-  /*constructor(props) {
-    super(props);
-    this.state = {
-      data: null,
-    };
-    // Check if the items table exists if not create it
-    db.transaction((tx) => {
-      tx.executeSql(
-        "CREATE TABLE IF NOT EXISTS status (id INTEGER PRIMARY KEY NOT NULL, todo	INTEGER, doing	INTEGER, review	INTEGER, done	INTEGER, task	TEXT);"
-      );
-    });
-    //this.fetchData() // ignore it for now
-  }*/
 
   state = {
     text: null,
@@ -146,19 +133,10 @@ export default class KanbanBoardScreen extends React.Component {
           "INSERT INTO status (todo, doing, review, done, task) values (1, 0, 0, 0, ?)",
           [text]
         );
-        /*tx.executeSql("SELECT * FROM status", [], (_, { rows }) =>
-          console.log(JSON.stringify(rows))
-        );*/
         tx.executeSql(
           "SELECT * FROM status",
           null,
           (txObj, { rows }) => console.log(JSON.stringify(rows))
-
-          // passing sql query and parameters: null
-          // success callback which sends two things Transaction object and ResultSet Object
-
-          // failure callback which sends two things Transaction object and Error
-          //(txObj, error) => console.log('Error ', error)
         );
       },
       null,
