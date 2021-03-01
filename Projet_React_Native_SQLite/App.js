@@ -6,6 +6,7 @@ import { theme } from './src/core/theme'
 import {
   StartScreen,
   KanbanBoardScreen,
+  ProfileScreen,
 } from './src/screens'
 
 const Stack = createStackNavigator()
@@ -22,6 +23,7 @@ const App = () => {
         >
           <Stack.Screen name="StartScreen" component={StartScreen} />
           <Stack.Screen name="KanbanBoardScreen" component={KanbanBoardScreen} />
+          <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>

@@ -1,13 +1,7 @@
-import { StatusBar } from "expo-status-bar";
 import React from "react";
 import { StyleSheet, View, TouchableOpacity } from "react-native";
 import { Text } from "react-native-paper";
-import Background from "../components/Background";
-import Logo from "../components/Logo";
 import Header from "../components/Header";
-import Button from "../components/Button";
-import TextInput from "../components/TextInput";
-import BackButton from "../components/BackButton";
 import { theme } from "../core/theme";
 
 // Import SQLite API.
@@ -66,14 +60,14 @@ export default class Tasks extends React.Component {
 
     return (
       //style
-      <View style={styles.sectionContainer}>
+      <View>
         <Header style={styles.header}>{heading}</Header>
         {items.map(({ id, todo, doing, review, done, task }) => (
           <TouchableOpacity
             key={id}
             onPress={() => this.props.onPressItem(id)}
             style={[
-              styles.button,
+              styles.task_button,
               {
                 backgroundColor: background_color,
               },
@@ -147,7 +141,7 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     textAlign: "center",
   },
-  button: {
+  task_button: {
     width: "100%",
     marginVertical: 2,
     paddingVertical: 2,
@@ -155,7 +149,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     padding: 8,
     alignContent: "flex-start",
-
+    borderRadius: 8,
+    alignSelf: "center",
   },
   task: {
     fontWeight: "bold",
@@ -163,31 +158,5 @@ const styles = StyleSheet.create({
     lineHeight: 32,
     textAlign: "left",
     alignSelf: "flex-start",
-  },
-  container: {
-    backgroundColor: "#fff",
-    flex: 1,
-    paddingTop: 8,
-  },
-  flexRow: {
-    flexDirection: "row",
-  },
-  input: {
-    borderColor: "#4630eb",
-    borderRadius: 4,
-    borderWidth: 1,
-    flex: 1,
-    height: 48,
-    margin: 16,
-    padding: 8,
-  },
-  listArea: {
-    backgroundColor: "#f0f0f0",
-    flex: 1,
-    paddingTop: 16,
-  },
-  sectionContainer: {
-    marginBottom: 16,
-    marginHorizontal: 16,
   },
 });

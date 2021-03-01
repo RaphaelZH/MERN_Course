@@ -1,14 +1,9 @@
-import { StatusBar } from "expo-status-bar";
 import React from "react";
 import { StyleSheet, View, ScrollView } from "react-native";
-import { Text } from "react-native-paper";
 import Background from "../components/Background";
-import Logo from "../components/Logo";
 import Header from "../components/Header";
-import Button from "../components/Button";
 import TextInput from "../components/TextInput";
 import BackButton from "../components/BackButton";
-import { theme } from "../core/theme";
 
 // Import SQLite API.
 import * as SQLite from "expo-sqlite";
@@ -20,7 +15,6 @@ import Tasks from "../components/Tasks";
 const db = SQLite.openDatabase("KanbanBoard.db");
 
 export default class KanbanBoardScreen extends React.Component {
-
   state = {
     text: null,
   };
@@ -133,10 +127,8 @@ export default class KanbanBoardScreen extends React.Component {
           "INSERT INTO status (todo, doing, review, done, task) values (1, 0, 0, 0, ?)",
           [text]
         );
-        tx.executeSql(
-          "SELECT * FROM status",
-          null,
-          (txObj, { rows }) => console.log(JSON.stringify(rows))
+        tx.executeSql("SELECT * FROM status", null, (txObj, { rows }) =>
+          console.log(JSON.stringify(rows))
         );
       },
       null,
@@ -167,36 +159,11 @@ export default class KanbanBoardScreen extends React.Component {
 const styles = StyleSheet.create({
   tasksArea: {
     flex: 1,
-    width: 330,
+    width: 300,
   },
   container: {
     backgroundColor: "#fff",
     flex: 1,
     paddingTop: 8,
-  },
-  heading: {
-    fontSize: 20,
-    fontWeight: "bold",
-    textAlign: "center",
-  },
-  flexRow: {
-    flexDirection: "row",
-  },
-  input: {
-    borderColor: "#4630eb",
-    borderRadius: 4,
-    borderWidth: 1,
-    flex: 1,
-    height: 48,
-    margin: 16,
-    padding: 8,
-  },
-  sectionContainer: {
-    marginBottom: 16,
-    marginHorizontal: 16,
-  },
-  sectionHeading: {
-    fontSize: 18,
-    marginBottom: 8,
   },
 });
