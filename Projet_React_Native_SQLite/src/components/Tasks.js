@@ -69,7 +69,7 @@ export default class Tasks extends React.Component {
       <View style={styles.sectionContainer}>
         <Header style={styles.header}>{heading}</Header>
         {items.map(({ id, todo, doing, review, done, task }) => (
-          <Button
+          <TouchableOpacity
             key={id}
             onPress={() => this.props.onPressItem(id)}
             style={[
@@ -89,7 +89,7 @@ export default class Tasks extends React.Component {
             >
               {[task]}
             </Text>
-          </Button>
+          </TouchableOpacity>
         ))}
       </View>
     );
@@ -141,7 +141,7 @@ export default class Tasks extends React.Component {
 
 const styles = StyleSheet.create({
   header: {
-    fontSize: 16,
+    fontSize: 24,
     color: theme.colors.secondary,
     fontWeight: "bold",
     paddingVertical: 8,
@@ -160,7 +160,7 @@ const styles = StyleSheet.create({
   task: {
     fontWeight: "bold",
     fontSize: 18,
-    lineHeight: 24,
+    lineHeight: 32,
     textAlign: "left",
     alignSelf: "flex-start",
   },

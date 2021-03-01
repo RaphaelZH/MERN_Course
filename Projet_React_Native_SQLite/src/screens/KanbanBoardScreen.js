@@ -47,7 +47,7 @@ export default class KanbanBoardScreen extends React.Component {
               this.add(this.state.text);
               this.setState({ text: null });
             }}
-            placeholder="Do you want to add a new task?"
+            placeholder="Please add your new task here."
             value={this.state.text}
             autoCapitalize="none"
           />
