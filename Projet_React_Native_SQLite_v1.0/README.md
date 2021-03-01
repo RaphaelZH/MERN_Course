@@ -25,3 +25,11 @@ There are a total of 3 screens in this app.
 ## Design inspiration
 
 This project's design inspiration comes from a [React Native Template](https://reactnativemarket.com) by using a high-quality, standard-compliant Material Design library, `React Native Paper`.
+
+## Simulator tested
+
+iPhone 12 Pro Max - iOS 14.4
+
+## Future word
+
+Try to add `React Native Gesture Handler` for each task.
